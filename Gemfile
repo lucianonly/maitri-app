@@ -1,10 +1,20 @@
 source 'https://rubygems.org'
 ruby '2.2.2'
 
+# making your Gemfile safe for Heroku
+ruby '1.9.3'   # just in case - tell Heroku which Ruby version we need
+group :development, :test do
+  # make sure sqlite3 gem ONLY occurs inside development & test groups
+  gem 'sqlite3' # use SQLite only in development and testing
+end 
+group :production do
+  # make sure the following gems are in your production group:
+  gem 'pg'              # use PostgreSQL in production (Heroku)
+  gem 'rails_12factor'  # Heroku-specific production settings
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
